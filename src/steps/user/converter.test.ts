@@ -42,7 +42,7 @@ describe('#createUserEntity', () => {
         userType: 'Test',
         roleId: 'roleid1',
         profileId: 'profileid1',
-        IsActive: true,
+        active: true,
         userPermissionsMarketingUser: false,
         userPermissionsOfflineUser: false,
         userPermissionsCallCenterAutoLogin: false,
