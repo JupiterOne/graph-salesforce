@@ -21,6 +21,10 @@ export function setupSalesforceRecording(
   return setupRecording({
     mutateEntry: mutateRecordingEntry,
     ...input,
+    options: {
+      // logLevel: 'trace',
+      ...input.options,
+    },
   });
 }
 

@@ -31,7 +31,10 @@ If you need help with this integration, please contact
 
 ### In Salesforce
 
-1. First navigate to the Salesforce developer account creation page or go to this webpage https://developer.salesforce.com/signup (note this must be a developer account. The integration will not run if you create a generic salesforce account).
+1. First navigate to the Salesforce developer account creation page or go to
+   this webpage https://developer.salesforce.com/signup (note this must be a
+   developer account. The integration will not run if you create a generic
+   salesforce account).
 
 2. Once the relevant form information has been filled out, submitting the form
    will redirect the user to Salesforce to authorize the requested scopes.
@@ -96,11 +99,16 @@ The following relationships are created:
 | ---------------------- | --------------------- | --------------------------- |
 | `salesforce_group`     | **ASSIGNED**          | `salesforce_user_role`      |
 | `salesforce_group`     | **HAS**               | `salesforce_group`          |
+| `salesforce_group`     | **HAS**               | `salesforce_group`          |
+| `salesforce_group`     | **HAS**               | `salesforce_user`           |
 | `salesforce_group`     | **HAS**               | `salesforce_user`           |
 | `salesforce_profile`   | **HAS**               | `salesforce_permission_set` |
 | `salesforce_user`      | **ASSIGNED**          | `salesforce_permission_set` |
+| `salesforce_user`      | **ASSIGNED**          | `salesforce_permission_set` |
 | `salesforce_user`      | **ASSIGNED**          | `salesforce_user_role`      |
 | `salesforce_user`      | **HAS**               | `salesforce_profile`        |
+| `salesforce_user`      | **HAS**               | `salesforce_profile`        |
+| `salesforce_user_role` | **CONTAINS**          | `salesforce_user_role`      |
 | `salesforce_user_role` | **CONTAINS**          | `salesforce_user_role`      |
 
 <!--
