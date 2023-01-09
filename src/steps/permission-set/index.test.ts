@@ -23,15 +23,9 @@ describe('#fetchPermissionSets', () => {
     recording = setupSalesforceRecording({
       directory: __dirname,
       name: 'fetchPermissionSetsShouldCollectData',
-      options: {
-        matchRequestsBy: {
-          url: {
-            hostname: false,
-          },
-        },
-        recordFailedRequests: false,
-      },
     });
+
+    console.log(JSON.stringify(integrationConfig));
 
     const context = createMockStepExecutionContext({
       instanceConfig: integrationConfig,
@@ -89,14 +83,6 @@ describe('#buildUserPermissionSetRelationships', () => {
     recording = setupSalesforceRecording({
       directory: __dirname,
       name: 'buildUserGroupUserRelationshipsShouldCollectData',
-      options: {
-        matchRequestsBy: {
-          url: {
-            hostname: false,
-          },
-        },
-        recordFailedRequests: true,
-      },
     });
 
     const context = createMockStepExecutionContext({
