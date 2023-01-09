@@ -25,7 +25,7 @@ describe('#fetchPermissionSets', () => {
       name: 'fetchPermissionSetsShouldCollectData',
     });
 
-    console.log(JSON.stringify(integrationConfig));
+    //console.log(JSON.stringify(integrationConfig)); // we can see config from .env getting passed in successfully
 
     const context = createMockStepExecutionContext({
       instanceConfig: integrationConfig,
