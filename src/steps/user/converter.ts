@@ -32,6 +32,7 @@ export function createUserEntity(
         updatedOn: parseTimePropertyValue(user.LastModifiedDate),
         updatedBy: user.LastModifiedById,
         userEmail: user.Email,
+        email: user.Email,
         userType: user.UserType,
         // Custom Properties
         roleId: user.UserRoleId,
