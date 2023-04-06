@@ -38,6 +38,7 @@ describe('#createUserEntity', () => {
         id: 'userid1',
         createdBy: 'createdid2',
         updatedBy: 'updatedbyid1',
+        email: 'useremail',
         userEmail: 'useremail',
         userType: 'Test',
         roleId: 'roleid1',
