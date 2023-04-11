@@ -1,13 +1,12 @@
-import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
+import { executeStepWithDependencies } from '@jupiterone/integration-sdk-testing';
 
 import {
   Recording,
   setupSalesforceRecording,
 } from '../../../test/helpers/recording';
 
-import { integrationConfig } from '../../../test/config';
-
-import { fetchUserRoles } from '.';
+import { getStepTestConfigForStep } from '../../../test/config';
+import { Steps } from '../constants';
 
 describe('#fetchUserRoles', () => {
   let recording: Recording;
@@ -26,18 +25,16 @@ describe('#fetchUserRoles', () => {
             hostname: false,
           },
         },
-        recordFailedRequests: false,
+        recordFailedRequests: true,
       },
     });
 
-    const context = createMockStepExecutionContext({
-      instanceConfig: integrationConfig,
-    });
-    await fetchUserRoles(context);
+    const stepTestConfig = getStepTestConfigForStep(Steps.USER_ROLES);
+    const stepResults = await executeStepWithDependencies(stepTestConfig);
 
-    expect(context.jobState.collectedEntities?.length).toBeTruthy;
-    expect(context.jobState.collectedRelationships).toHaveLength(0);
-    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
+    expect(stepResults.collectedEntities?.length).toBeTruthy;
+    expect(stepResults.collectedRelationships).toHaveLength(0);
+    expect(stepResults.collectedEntities).toMatchGraphObjectSchema({
       _class: ['AccessRole'],
       schema: {
         additionalProperties: true,
@@ -58,5 +55,5 @@ describe('#fetchUserRoles', () => {
         required: [],
       },
     });
-  });
+  }, 10_000);
 });

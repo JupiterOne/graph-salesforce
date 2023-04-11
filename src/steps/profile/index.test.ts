@@ -1,13 +1,13 @@
-import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
+import { executeStepWithDependencies } from '@jupiterone/integration-sdk-testing';
 
 import {
   Recording,
   setupSalesforceRecording,
 } from '../../../test/helpers/recording';
 
-import { integrationConfig } from '../../../test/config';
+import { getStepTestConfigForStep } from '../../../test/config';
 
-import { fetchProfiles } from '.';
+import { Steps } from '../constants';
 
 describe('#fetchProfiles', () => {
   let recording: Recording;
@@ -26,18 +26,16 @@ describe('#fetchProfiles', () => {
             hostname: false,
           },
         },
-        recordFailedRequests: false,
+        recordFailedRequests: true,
       },
     });
 
-    const context = createMockStepExecutionContext({
-      instanceConfig: integrationConfig,
-    });
-    await fetchProfiles(context);
+    const stepTestConfig = getStepTestConfigForStep(Steps.PROFILES);
+    const stepResults = await executeStepWithDependencies(stepTestConfig);
 
-    expect(context.jobState.collectedEntities?.length).toBeTruthy;
-    expect(context.jobState.collectedRelationships).toHaveLength(0);
-    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
+    expect(stepResults.collectedEntities?.length).toBeTruthy;
+    expect(stepResults.collectedRelationships).toHaveLength(0);
+    expect(stepResults.collectedEntities).toMatchGraphObjectSchema({
       _class: ['Account'],
       schema: {
         additionalProperties: true,
@@ -59,5 +57,5 @@ describe('#fetchProfiles', () => {
         required: [],
       },
     });
-  });
+  }, 10_000);
 });

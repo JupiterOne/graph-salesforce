@@ -1,4 +1,4 @@
-import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
+import { executeStepWithDependencies } from '@jupiterone/integration-sdk-testing';
 import { RelationshipClass } from '@jupiterone/integration-sdk-core';
 
 import {
@@ -6,12 +6,9 @@ import {
   setupSalesforceRecording,
 } from '../../../test/helpers/recording';
 
-import { integrationConfig } from '../../../test/config';
+import { getStepTestConfigForStep } from '../../../test/config';
 
-import { buildGroupRelationships, fetchGroups } from '.';
-import { fetchUsers } from '../user/';
-import { Relationships } from '../constants';
-import { fetchUserRoles } from '../user-role';
+import { Relationships, Steps } from '../constants';
 
 describe('#fetchGroups', () => {
   let recording: Recording;
@@ -30,18 +27,16 @@ describe('#fetchGroups', () => {
             hostname: false,
           },
         },
-        recordFailedRequests: false,
+        recordFailedRequests: true,
       },
     });
 
-    const context = createMockStepExecutionContext({
-      instanceConfig: integrationConfig,
-    });
-    await fetchGroups(context);
+    const stepTestConfig = getStepTestConfigForStep(Steps.GROUPS);
+    const stepResults = await executeStepWithDependencies(stepTestConfig);
 
-    expect(context.jobState.collectedEntities?.length).toBeTruthy;
-    expect(context.jobState.collectedRelationships).toHaveLength(0);
-    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
+    expect(stepResults.collectedEntities?.length).toBeTruthy;
+    expect(stepResults.collectedRelationships.length).toBeTruthy();
+    expect(stepResults.collectedEntities).toMatchGraphObjectSchema({
       _class: ['Group'],
       schema: {
         additionalProperties: true,
@@ -66,7 +61,7 @@ describe('#fetchGroups', () => {
         required: [],
       },
     });
-  });
+  }, 10_000);
 
   test('should build group to user role relationship', async () => {
     recording = setupSalesforceRecording({
@@ -78,22 +73,19 @@ describe('#fetchGroups', () => {
             hostname: false,
           },
         },
-        recordFailedRequests: false,
+        recordFailedRequests: true,
       },
     });
 
-    const context = createMockStepExecutionContext({
-      instanceConfig: integrationConfig,
-    });
-    await fetchUserRoles(context);
-    await fetchGroups(context);
+    const stepTestConfig = getStepTestConfigForStep(Steps.GROUPS);
+    const stepResults = await executeStepWithDependencies(stepTestConfig);
 
     // Check that group to role relationship was built
-    expect(context.jobState.collectedRelationships?.length).toBeTruthy;
+    expect(stepResults.collectedRelationships?.length).toBeTruthy;
 
     // Group to group relationship
     expect(
-      context.jobState.collectedRelationships.filter(
+      stepResults.collectedRelationships.filter(
         (r) => r._type === Relationships.GROUP_ASSIGNED_USER_ROLE._type,
       ),
     ).toMatchDirectRelationshipSchema({
@@ -104,7 +96,7 @@ describe('#fetchGroups', () => {
         },
       },
     });
-  });
+  }, 10_000);
 });
 
 describe('#buildGroupRelationships', () => {
@@ -124,23 +116,20 @@ describe('#buildGroupRelationships', () => {
             hostname: false,
           },
         },
-        recordFailedRequests: false,
+        recordFailedRequests: true,
       },
     });
 
-    const context = createMockStepExecutionContext({
-      instanceConfig: integrationConfig,
-    });
+    const stepTestConfig = getStepTestConfigForStep(
+      Steps.BUILD_GROUP_RELATIONSHIPS,
+    );
+    const stepResults = await executeStepWithDependencies(stepTestConfig);
 
-    await fetchUsers(context);
-    await fetchGroups(context);
-    await buildGroupRelationships(context);
-
-    expect(context.jobState.collectedRelationships?.length).toBeTruthy;
+    expect(stepResults.collectedRelationships?.length).toBeTruthy;
 
     // Group to group relationship
     expect(
-      context.jobState.collectedRelationships.filter(
+      stepResults.collectedRelationships.filter(
         (r) => r._type === Relationships.GROUP_HAS_GROUP._type,
       ),
     ).toMatchDirectRelationshipSchema({
@@ -154,7 +143,7 @@ describe('#buildGroupRelationships', () => {
 
     // Group to user relationship
     expect(
-      context.jobState.collectedRelationships.filter(
+      stepResults.collectedRelationships.filter(
         (r) => r._type === Relationships.GROUP_HAS_USER._type,
       ),
     ).toMatchDirectRelationshipSchema({
@@ -165,5 +154,5 @@ describe('#buildGroupRelationships', () => {
         },
       },
     });
-  });
+  }, 10_000);
 });

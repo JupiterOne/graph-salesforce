@@ -19,7 +19,16 @@ export function setupSalesforceRecording(
   input: SetupRecordingInput,
 ): Recording {
   return setupRecording({
-    mutateEntry: mutateRecordingEntry,
+    mutateEntry: input.options?.recordFailedRequests
+      ? (entry) => {
+          if (![200, 401].includes(entry.response.status)) {
+            throw new Error(
+              `${input.name} should only receive 200 and 401 response codes - got ${entry.response.status}`,
+            );
+          }
+          return mutateRecordingEntry(entry);
+        }
+      : mutateRecordingEntry,
     ...input,
   });
 }
