@@ -1,4 +1,4 @@
-import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
+import { executeStepWithDependencies } from '@jupiterone/integration-sdk-testing';
 import { RelationshipClass } from '@jupiterone/integration-sdk-core';
 
 import {
@@ -6,11 +6,9 @@ import {
   setupSalesforceRecording,
 } from '../../../test/helpers/recording';
 
-import { integrationConfig } from '../../../test/config';
+import { getStepTestConfigForStep } from '../../../test/config';
 
-import { buildUserPermissionSetRelationships, fetchPermissionSets } from '.';
-import { fetchUsers } from '../user/';
-import { Relationships } from '../constants';
+import { Relationships, Steps } from '../constants';
 
 describe('#fetchPermissionSets', () => {
   let recording: Recording;
@@ -29,18 +27,16 @@ describe('#fetchPermissionSets', () => {
             hostname: false,
           },
         },
-        recordFailedRequests: false,
+        recordFailedRequests: true,
       },
     });
 
-    const context = createMockStepExecutionContext({
-      instanceConfig: integrationConfig,
-    });
-    await fetchPermissionSets(context);
+    const stepTestConfig = getStepTestConfigForStep(Steps.PERMISSION_SETS);
+    const stepResults = await executeStepWithDependencies(stepTestConfig);
 
-    expect(context.jobState.collectedEntities?.length).toBeTruthy;
-    expect(context.jobState.collectedRelationships).toHaveLength(0);
-    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
+    expect(stepResults.collectedEntities?.length).toBeTruthy;
+    expect(stepResults.collectedRelationships.length).toBeTruthy();
+    expect(stepResults.collectedEntities).toMatchGraphObjectSchema({
       _class: ['AccessPolicy'],
       schema: {
         additionalProperties: true,
@@ -75,7 +71,7 @@ describe('#fetchPermissionSets', () => {
         required: [],
       },
     });
-  });
+  }, 10_000);
 });
 
 describe('#buildUserPermissionSetRelationships', () => {
@@ -99,17 +95,14 @@ describe('#buildUserPermissionSetRelationships', () => {
       },
     });
 
-    const context = createMockStepExecutionContext({
-      instanceConfig: integrationConfig,
-    });
+    const stepTestConfig = getStepTestConfigForStep(
+      Steps.BUILD_USER_ASSIGNED_PERMISSION_SETS,
+    );
+    const stepResults = await executeStepWithDependencies(stepTestConfig);
 
-    await fetchUsers(context);
-    await fetchPermissionSets(context);
-    await buildUserPermissionSetRelationships(context);
-
-    expect(context.jobState.collectedRelationships?.length).toBeTruthy;
+    expect(stepResults.collectedRelationships?.length).toBeTruthy;
     expect(
-      context.jobState.collectedRelationships.filter(
+      stepResults.collectedRelationships.filter(
         (r) => r._type === Relationships.USER_ASSIGNED_PERMISSION_SET._type,
       ),
     ).toMatchDirectRelationshipSchema({
@@ -120,5 +113,5 @@ describe('#buildUserPermissionSetRelationships', () => {
         },
       },
     });
-  });
+  }, 10_000);
 });
