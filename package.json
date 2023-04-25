@@ -34,6 +34,23 @@
     "@jupiterone/integration-sdk-testing": "^8.33.1"
   },
   "dependencies": {
+    "auto": "^10.45.0",
     "jsforce": "^2.0.0-beta.5"
+  },
+  "auto": {
+    "plugins": [
+      [
+        "npm",
+        {
+          "setRcToken": false,
+          "publishFolder": "./dist"
+        }
+      ],
+      "released"
+    ],
+    "onlyPublishWithReleaseLabel": true,
+    "shipit": {
+      "prerelease": false
+    }
   }
 }
