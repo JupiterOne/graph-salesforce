@@ -1,3 +1,16 @@
+# v0.1.1 (Tue Apr 25 2023)
+
+#### 🐛 Bug Fix
+
+- Fix auto error [#62](https://github.com/JupiterOne/graph-salesforce/pull/62) (gonzaloavalosribas@Gonzalos-MacBook-Pro.local)
+- Initial commit for auto [#61](https://github.com/JupiterOne/graph-salesforce/pull/61) (gonzaloavalosribas@Gonzalos-MacBook-Pro.local)
+
+#### Authors: 1
+
+- Gonzalo Avalos Ribas ([@Gonzalo-Avalos-Ribas](https://github.com/Gonzalo-Avalos-Ribas))
+
+---
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
