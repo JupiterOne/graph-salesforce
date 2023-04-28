@@ -15,18 +15,15 @@ export const Steps = {
     'fetch-user-role-to-user-role-relationship',
   PROFILES: 'fetch-profiles',
 };
-type SalesforceStepEntityMetadata = StepEntityMetadata & {
-  disableClassMatch?: boolean;
-};
+
 export const Entities: Record<
   'USER' | 'USER_ROLE' | 'PERMISSION_SET' | 'GROUP' | 'PROFILE',
-  SalesforceStepEntityMetadata
+  StepEntityMetadata
 > = {
   USER: {
     resourceName: 'User',
     _type: 'salesforce_user',
     _class: ['User'],
-    disableClassMatch: true,
   },
   USER_ROLE: {
     resourceName: 'UserRole',

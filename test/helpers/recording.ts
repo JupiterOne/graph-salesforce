@@ -32,6 +32,7 @@ export function setupSalesforceRecording(
     ...input,
     options: {
       matchRequestsBy: {
+        headers: false,
         url: {
           hostname: false,
         },
