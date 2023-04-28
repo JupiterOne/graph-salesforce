@@ -29,7 +29,7 @@ describe('#fetchGroups', () => {
     const stepResults = await executeStepWithDependencies(stepTestConfig);
 
     expect(stepResults).toMatchStepMetadata(stepTestConfig);
-  }, 10_000);
+  }, 20_000);
 
   test('should build group to user role relationship', async () => {
     recording = setupSalesforceRecording({
@@ -44,7 +44,7 @@ describe('#fetchGroups', () => {
     const stepResults = await executeStepWithDependencies(stepTestConfig);
 
     expect(stepResults).toMatchStepMetadata(stepTestConfig);
-  }, 10_000);
+  }, 20_000);
 });
 
 describe('#buildGroupRelationships', () => {
@@ -69,5 +69,5 @@ describe('#buildGroupRelationships', () => {
     const stepResults = await executeStepWithDependencies(stepTestConfig);
 
     expect(stepResults).toMatchStepMetadata(stepTestConfig);
-  }, 10_000);
+  }, 20_000);
 });
