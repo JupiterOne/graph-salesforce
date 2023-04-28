@@ -21,11 +21,6 @@ describe('#fetchProfiles', () => {
       directory: __dirname,
       name: 'fetchProfilesShouldCollectData',
       options: {
-        matchRequestsBy: {
-          url: {
-            hostname: false,
-          },
-        },
         recordFailedRequests: true,
       },
     });

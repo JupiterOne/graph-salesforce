@@ -20,11 +20,6 @@ describe('#fetchUsers', () => {
       directory: __dirname,
       name: 'fetchUsersShouldCollectData',
       options: {
-        matchRequestsBy: {
-          url: {
-            hostname: false,
-          },
-        },
         recordFailedRequests: true,
       },
     });
