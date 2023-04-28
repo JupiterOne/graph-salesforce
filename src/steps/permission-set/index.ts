@@ -94,10 +94,7 @@ export const permissionSetSteps: IntegrationStep<IntegrationConfig>[] = [
     id: Steps.PERMISSION_SETS,
     name: 'Fetch User Permission Details',
     entities: [Entities.PERMISSION_SET],
-    relationships: [
-      Relationships.USER_ASSIGNED_PERMISSION_SET,
-      Relationships.PROFILE_HAS_PERMISSION_SET,
-    ],
+    relationships: [Relationships.PROFILE_HAS_PERMISSION_SET],
     dependsOn: [Steps.PROFILES],
     executionHandler: fetchPermissionSets,
   },

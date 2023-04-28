@@ -21,11 +21,6 @@ describe('#fetchProfiles', () => {
       directory: __dirname,
       name: 'fetchProfilesShouldCollectData',
       options: {
-        matchRequestsBy: {
-          url: {
-            hostname: false,
-          },
-        },
         recordFailedRequests: true,
       },
     });
@@ -33,29 +28,6 @@ describe('#fetchProfiles', () => {
     const stepTestConfig = getStepTestConfigForStep(Steps.PROFILES);
     const stepResults = await executeStepWithDependencies(stepTestConfig);
 
-    expect(stepResults.collectedEntities?.length).toBeTruthy;
-    expect(stepResults.collectedRelationships).toHaveLength(0);
-    expect(stepResults.collectedEntities).toMatchGraphObjectSchema({
-      _class: ['Account'],
-      schema: {
-        additionalProperties: true,
-        properties: {
-          _type: { const: 'salesforce_profile' },
-          _key: { type: 'string' },
-          name: { type: 'string' },
-          updatedOn: { type: 'number' },
-          updatedBy: { type: 'string' },
-          createdOn: { type: 'number' },
-          createBy: { type: 'string' },
-          description: { type: 'string' },
-          userType: { type: 'string' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-        },
-        required: [],
-      },
-    });
+    expect(stepResults).toMatchStepMetadata(stepTestConfig);
   }, 10_000);
 });

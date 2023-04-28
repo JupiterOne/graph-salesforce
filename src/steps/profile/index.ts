@@ -5,7 +5,7 @@ import {
 
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
-import { Entities, Steps, Relationships } from '../constants';
+import { Entities, Steps } from '../constants';
 import { createProfileEntity } from './converter';
 
 export async function fetchProfiles({
@@ -24,7 +24,7 @@ export const profileSteps: IntegrationStep<IntegrationConfig>[] = [
     id: Steps.PROFILES,
     name: 'Fetch Profile Details',
     entities: [Entities.PROFILE],
-    relationships: [Relationships.USER_HAS_PROFILE],
+    relationships: [],
     dependsOn: [],
     executionHandler: fetchProfiles,
   },

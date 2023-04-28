@@ -62,7 +62,6 @@ export async function buildGroupRelationships({
     const groupEntity = await jobState.findEntity(
       createGroupEntityIdentifier(groupMember.GroupId),
     );
-
     if (userEntity && groupEntity) {
       // Create group has user relationship
       await jobState.addRelationship(
@@ -96,11 +95,7 @@ export const groupSteps: IntegrationStep<IntegrationConfig>[] = [
     id: Steps.GROUPS,
     name: 'Fetch Group Details',
     entities: [Entities.GROUP],
-    relationships: [
-      Relationships.GROUP_HAS_USER,
-      Relationships.GROUP_HAS_GROUP,
-      Relationships.GROUP_ASSIGNED_USER_ROLE,
-    ],
+    relationships: [Relationships.GROUP_ASSIGNED_USER_ROLE],
     dependsOn: [Steps.USER_ROLES],
     executionHandler: fetchGroups,
   },
