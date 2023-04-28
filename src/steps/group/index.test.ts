@@ -21,6 +21,11 @@ describe('#fetchGroups', () => {
       directory: __dirname,
       name: 'fetchGroupsShouldCollectData',
       options: {
+        matchRequestsBy: {
+          url: {
+            hostname: false,
+          },
+        },
         recordFailedRequests: true,
       },
     });
@@ -36,6 +41,11 @@ describe('#fetchGroups', () => {
       directory: __dirname,
       name: 'fetchGroupsShouldBuildUserRoleRelationship',
       options: {
+        matchRequestsBy: {
+          url: {
+            hostname: false,
+          },
+        },
         recordFailedRequests: true,
       },
     });
@@ -59,6 +69,11 @@ describe('#buildGroupRelationships', () => {
       directory: __dirname,
       name: 'buildUserGroupUserRelationshipsShouldCollectData',
       options: {
+        matchRequestsBy: {
+          url: {
+            hostname: false,
+          },
+        },
         recordFailedRequests: true,
       },
     });

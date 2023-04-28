@@ -21,6 +21,11 @@ describe('#fetchPermissionSets', () => {
       directory: __dirname,
       name: 'fetchPermissionSetsShouldCollectData',
       options: {
+        matchRequestsBy: {
+          url: {
+            hostname: false,
+          },
+        },
         recordFailedRequests: true,
       },
     });
@@ -44,6 +49,11 @@ describe('#buildUserPermissionSetRelationships', () => {
       directory: __dirname,
       name: 'buildUserGroupUserRelationshipsShouldCollectData',
       options: {
+        matchRequestsBy: {
+          url: {
+            hostname: false,
+          },
+        },
         recordFailedRequests: true,
       },
     });

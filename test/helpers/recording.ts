@@ -30,14 +30,6 @@ export function setupSalesforceRecording(
         }
       : mutateRecordingEntry,
     ...input,
-    options: {
-      matchRequestsBy: {
-        url: {
-          hostname: false,
-        },
-      },
-      recordFailedRequests: input.options?.recordFailedRequests,
-    },
   });
 }
 
