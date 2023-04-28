@@ -31,7 +31,8 @@ If you need help with this integration, please contact
 
 ### In Salesforce
 
-1. First navigate to the Salesforce developer account creation page or go to this webpage https://developer.salesforce.com/signup.
+1. First navigate to the Salesforce developer account creation page or go to
+   this webpage https://developer.salesforce.com/signup.
 
 2. After the relevant form information has been filled out, submitting the form
    will redirect the user to Salesforce to authorize the requested scopes.
