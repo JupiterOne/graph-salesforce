@@ -8,9 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
-- Added `auto` package to help with builds, versioning and npm packaging
+## 1.1.3 - 2023-04-28
+
+- Move `auto` to devDependencies
 
 ## 1.1.2 - 2023-04-25
+
+- Added `auto` package to help with builds, versioning and npm packaging
 
 ## 1.1.1 - 2023-04-06
 
