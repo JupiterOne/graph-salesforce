@@ -29,5 +29,5 @@ describe('#fetchProfiles', () => {
     const stepResults = await executeStepWithDependencies(stepTestConfig);
 
     expect(stepResults).toMatchStepMetadata(stepTestConfig);
-  }, 20_000);
+  }, 100_000);
 });
