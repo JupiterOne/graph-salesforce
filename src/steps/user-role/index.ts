@@ -64,7 +64,7 @@ export const userRoleSteps: IntegrationStep<IntegrationConfig>[] = [
     id: Steps.USER_ROLES,
     name: 'Fetch User Role Details',
     entities: [Entities.USER_ROLE],
-    relationships: [Relationships.USER_ROLE_CONTAINS_USER_ROLE],
+    relationships: [],
     dependsOn: [],
     executionHandler: fetchUserRoles,
   },
