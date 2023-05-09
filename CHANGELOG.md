@@ -1,3 +1,16 @@
+# v1.1.4 (Tue May 09 2023)
+
+#### 🐛 Bug Fix
+
+- Int 7897: Auto + test improvements [#63](https://github.com/JupiterOne/graph-salesforce/pull/63) (gonzaloavalosribas@Gonzalos-MacBook-Pro.local [@ndowmon](https://github.com/ndowmon))
+
+#### Authors: 2
+
+- Gonzalo Avalos Ribas ([@Gonzalo-Avalos-Ribas](https://github.com/Gonzalo-Avalos-Ribas))
+- Nick Dowmon ([@ndowmon](https://github.com/ndowmon))
+
+---
+
 # v0.1.1 (Fri Apr 28 2023)
 
 #### 🐛 Bug Fix
