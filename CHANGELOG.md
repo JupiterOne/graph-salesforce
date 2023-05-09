@@ -1,3 +1,15 @@
+# v1.1.5 (Tue May 09 2023)
+
+#### 🐛 Bug Fix
+
+- Bumped integration-github-actions package version [#65](https://github.com/JupiterOne/graph-salesforce/pull/65) (gonzaloavalosribas@Gonzalos-MacBook-Pro.local)
+
+#### Authors: 1
+
+- Gonzalo Avalos Ribas ([@Gonzalo-Avalos-Ribas](https://github.com/Gonzalo-Avalos-Ribas))
+
+---
+
 # v1.1.4 (Tue May 09 2023)
 
 #### 🐛 Bug Fix
