@@ -35,6 +35,14 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
     type: 'string',
     mask: true,
   },
+  userRoleFilter: {
+    type: 'string',
+    optional: true,
+  },
+  userProfileFilter: {
+    type: 'string',
+    optional: true,
+  },
 };
 
 /**
@@ -61,6 +69,16 @@ export interface IntegrationConfig extends IntegrationInstanceConfig {
    * The provider API client secret
    */
   clientSecret: string;
+
+  /**
+   * OPTIONAL:  The role ID to filter user ingestion on.
+   */
+  userRoleFilter?: string[] | string;
+
+  /**
+   * OPTIONAL:  The profile ID to filter user ingestion on.
+   */
+  userProfileFilter?: string[] | string;
 }
 
 export async function validateInvocation(
@@ -79,6 +97,35 @@ export async function validateInvocation(
     );
   }
 
+  if (config.userRoleFilter && !Array.isArray(config.userRoleFilter)) {
+    config.userRoleFilter = normalizeStringArrays(config.userRoleFilter);
+  }
+
+  if (config.userProfileFilter && !Array.isArray(config.userProfileFilter)) {
+    config.userProfileFilter = normalizeStringArrays(config.userProfileFilter);
+  }
+
+  context.instance.config = config;
   const apiClient = createAPIClient(config);
   await apiClient.verifyAuthentication();
+}
+
+const EMTPY_STRING = /(^$)|(^\s+$)/;
+
+// We may receive a single string or an array of strings delimited by commas.
+export function normalizeStringArrays(
+  userInput: string | string[] | undefined,
+): string[] {
+  if (Array.isArray(userInput)) {
+    return userInput.filter((e) => !EMTPY_STRING.test(e)).map((e) => e.trim());
+  } else if (userInput && !EMTPY_STRING.test(userInput)) {
+    try {
+      const parsedUsers = JSON.parse(userInput);
+      return normalizeStringArrays(parsedUsers);
+    } catch (err) {
+      return normalizeStringArrays([userInput]);
+    }
+  } else {
+    return [];
+  }
 }

@@ -59,7 +59,23 @@ export class APIClient {
   public async iterateUsers(
     iteratee: ResourceIteratee<StandardSchema['SObjects']['User']['Fields']>,
   ): Promise<void> {
-    const users = await this.conn.sobject('User').find().autoFetch(true); //autofetch will automatically handle pagination
+    let conditions;
+
+    if (this.config.userProfileFilter && this.config.userRoleFilter) {
+      conditions = {
+        userRoleId: this.config.userRoleFilter,
+        profileId: this.config.userProfileFilter,
+      };
+    } else if (this.config.userProfileFilter) {
+      conditions = { profileId: this.config.userProfileFilter };
+    } else if (this.config.userRoleFilter) {
+      conditions = { userRoleId: { $in: this.config.userRoleFilter } };
+    }
+
+    const users = await this.conn
+      .sobject('User')
+      .find(conditions)
+      .autoFetch(true); //autofetch will automatically handle pagination
 
     for (const user of users) {
       await iteratee(user);
