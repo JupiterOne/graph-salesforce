@@ -51,6 +51,23 @@ export class APIClient {
     }
   }
 
+  public buildUserFilterConditions() {
+    let conditions;
+
+    if (this.config.userProfileFilter && this.config.userRoleFilter) {
+      conditions = {
+        userRoleId: { $in: this.config.userRoleFilter },
+        profileId: { $in: this.config.userProfileFilter },
+      };
+    } else if (this.config.userProfileFilter) {
+      conditions = { profileId: { $in: this.config.userProfileFilter } };
+    } else if (this.config.userRoleFilter) {
+      conditions = { userRoleId: { $in: this.config.userRoleFilter } };
+    }
+
+    return conditions;
+  }
+
   /**
    * Iterates each user resource in the provider.
    *
@@ -59,18 +76,7 @@ export class APIClient {
   public async iterateUsers(
     iteratee: ResourceIteratee<StandardSchema['SObjects']['User']['Fields']>,
   ): Promise<void> {
-    let conditions;
-
-    if (this.config.userProfileFilter && this.config.userRoleFilter) {
-      conditions = {
-        userRoleId: this.config.userRoleFilter,
-        profileId: this.config.userProfileFilter,
-      };
-    } else if (this.config.userProfileFilter) {
-      conditions = { profileId: this.config.userProfileFilter };
-    } else if (this.config.userRoleFilter) {
-      conditions = { userRoleId: { $in: this.config.userRoleFilter } };
-    }
+    const conditions = this.buildUserFilterConditions();
 
     const users = await this.conn
       .sobject('User')
