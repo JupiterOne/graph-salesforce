@@ -110,15 +110,15 @@ export async function validateInvocation(
   await apiClient.verifyAuthentication();
 }
 
-const EMTPY_STRING = /(^$)|(^\s+$)/;
+const EMPTY_STRING = /(^$)|(^\s+$)/;
 
 // We may receive a single string or an array of strings delimited by commas.
 export function normalizeStringArrays(
   userInput: string | string[] | undefined,
 ): string[] {
   if (Array.isArray(userInput)) {
-    return userInput.filter((e) => !EMTPY_STRING.test(e)).map((e) => e.trim());
-  } else if (userInput && !EMTPY_STRING.test(userInput)) {
+    return userInput.filter((e) => !EMPTY_STRING.test(e)).map((e) => e.trim());
+  } else if (userInput && !EMPTY_STRING.test(userInput)) {
     try {
       const parsedUsers = JSON.parse(userInput);
       return normalizeStringArrays(parsedUsers);
