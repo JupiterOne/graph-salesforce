@@ -1,3 +1,20 @@
+# v1.2.0 (Tue Jun 20 2023)
+
+#### 🚀 Enhancement
+
+- INT-8376 - User filters [#67](https://github.com/JupiterOne/graph-salesforce/pull/67) ([@adam-in-ict](https://github.com/adam-in-ict))
+
+#### 🐛 Bug Fix
+
+- Update integration-deployments.yml [#66](https://github.com/JupiterOne/graph-salesforce/pull/66) ([@Nick-NCSU](https://github.com/Nick-NCSU))
+
+#### Authors: 2
+
+- Adam Pierson ([@adam-in-ict](https://github.com/adam-in-ict))
+- Nick Thompson ([@Nick-NCSU](https://github.com/Nick-NCSU))
+
+---
+
 # v1.1.5 (Tue May 09 2023)
 
 #### 🐛 Bug Fix
