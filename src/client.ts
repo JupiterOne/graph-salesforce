@@ -51,6 +51,8 @@ export class APIClient {
     }
   }
 
+  // TODO (adam-in-ict) - if we can determine specific characters that are or
+  // aren't allowed in profiles and roles, we should add a regex check here.
   public buildUserFilterConditions() {
     let conditions;
 
