@@ -51,6 +51,25 @@ export class APIClient {
     }
   }
 
+  // TODO (adam-in-ict) - if we can determine specific characters that are or
+  // aren't allowed in profiles and roles, we should add a regex check here.
+  public buildUserFilterConditions() {
+    let conditions;
+
+    if (this.config.userProfileFilter && this.config.userRoleFilter) {
+      conditions = {
+        userRoleId: { $in: this.config.userRoleFilter },
+        profileId: { $in: this.config.userProfileFilter },
+      };
+    } else if (this.config.userProfileFilter) {
+      conditions = { profileId: { $in: this.config.userProfileFilter } };
+    } else if (this.config.userRoleFilter) {
+      conditions = { userRoleId: { $in: this.config.userRoleFilter } };
+    }
+
+    return conditions;
+  }
+
   /**
    * Iterates each user resource in the provider.
    *
@@ -59,7 +78,12 @@ export class APIClient {
   public async iterateUsers(
     iteratee: ResourceIteratee<StandardSchema['SObjects']['User']['Fields']>,
   ): Promise<void> {
-    const users = await this.conn.sobject('User').find().autoFetch(true); //autofetch will automatically handle pagination
+    const conditions = this.buildUserFilterConditions();
+
+    const users = await this.conn
+      .sobject('User')
+      .find(conditions)
+      .autoFetch(true); //autofetch will automatically handle pagination
 
     for (const user of users) {
       await iteratee(user);
