@@ -39,8 +39,8 @@ is required to run and test this integration.
    --header 'Content-Type: application/x-www-form-urlencoded' \
    --data-urlencode 'grant_type=authorization_code' \
    --data-urlencode 'code={AUTH_CODE}' \
-   --data-urlencode 'client_id={CONSUMER_KEY}' \
-   --data-urlencode 'client_secret={CONSUMER_SECRET}' \
+   --data-urlencode 'client_id=3MVG95nWQGdmAiErsLECMKGdk.VwGEFICRxttN5I4frUvVqN9LZcxHofqvfhP4CzxVpr9dx5hUdqcuS4MDDxS' \
+   --data-urlencode 'client_secret=2273A462B29F20FB8DDDA770C2EAB879DA7F97059A2079C5BA0EA17124DE3514' \
    --data-urlencode 'redirect_uri=https://login.salesforce.com/services/oauth2/success'
    ```
 
