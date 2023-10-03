@@ -1,3 +1,20 @@
+# v2.0.0 (Tue Oct 03 2023)
+
+#### 💥 Breaking Change
+
+- upgrade to node 18 [#69](https://github.com/JupiterOne/graph-salesforce/pull/69) (ronald.arias@contractor.jupiterone.com)
+
+#### 🐛 Bug Fix
+
+- INT-8573 - Updating documentation to list information on user filters. [#68](https://github.com/JupiterOne/graph-salesforce/pull/68) ([@adam-in-ict](https://github.com/adam-in-ict))
+
+#### Authors: 2
+
+- Adam Pierson ([@adam-in-ict](https://github.com/adam-in-ict))
+- Ronald Arias ([@RonaldEAM](https://github.com/RonaldEAM))
+
+---
+
 # v1.2.0 (Tue Jun 20 2023)
 
 #### 🚀 Enhancement
