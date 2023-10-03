@@ -10,6 +10,7 @@ import { Entities, Steps, Relationships } from '../constants';
 import { createUserEntity } from './converter';
 import { createUserRoleEntityIdentifier } from '../user-role/converter';
 import { createProfileEntityIdentifier } from '../profile/converter';
+import { matchEmailFormat } from '../../utils/matchEmailFormat';
 
 export async function fetchUsers({
   instance,
@@ -18,6 +19,9 @@ export async function fetchUsers({
   const apiClient = createAPIClient(instance.config);
 
   await apiClient.iterateUsers(async (user) => {
+    if (!user.Email || !matchEmailFormat(user.Email)) {
+      return;
+    }
     const userEntity = await jobState.addEntity(createUserEntity(user));
 
     if (user.UserRoleId) {

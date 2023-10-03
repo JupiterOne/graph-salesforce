@@ -66,9 +66,10 @@ export async function buildUserPermissionSetRelationships({
       const permEntity = await jobState.findEntity(permEntityId);
 
       if (userEntity && permEntity) {
-        const perm = getRawData<
-          StandardSchema['SObjects']['PermissionSet']['Fields']
-        >(permEntity);
+        const perm =
+          getRawData<StandardSchema['SObjects']['PermissionSet']['Fields']>(
+            permEntity,
+          );
 
         if (perm && !perm.IsOwnedByProfile) {
           // Check to see if the user has this permission set from its profile

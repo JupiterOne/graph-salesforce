@@ -32,9 +32,10 @@ export async function fetchUserRoleToUserRoleRelationship({
   await jobState.iterateEntities(
     { _type: Entities.USER_ROLE._type },
     async (roleEntity) => {
-      const role = getRawData<StandardSchema['SObjects']['UserRole']['Fields']>(
-        roleEntity,
-      );
+      const role =
+        getRawData<StandardSchema['SObjects']['UserRole']['Fields']>(
+          roleEntity,
+        );
 
       if (role?.ParentRoleId) {
         // If this role has a parent, build the role to role relationship
