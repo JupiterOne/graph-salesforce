@@ -1,26 +1,17 @@
 ---
-sourceId: managed:salesforce
+sourceId: managed:google_cloud
 integrationDefinitionId: '${integration_definition_id}'
 questions:
-  []
-  # - id: integration-question-template-replace-me
-  #   title: What kinds of questions will this integration support?
-  #   description:
-  #     TODO Every integration should contribute questions! Please be careful
-  #     to replace this before deploying the integration to JupiterOne.
-  #   queries:
-  #     - name: good
-  #       query: |
-  #         find * with _integrationDefinitionId = '${integration_definition_id}'
-  #   tags:
-  #     - template
+  ################################################################################
+  # Generic non-compliance questions
+  ################################################################################
   - id: integration-salesforce-user-permissionsets
     title:
-      Which salesforce users have had modified permission sets in the last 30 days
+      Which salesforce users have had modified permission sets in the last 30 days?
     description: Finds all salesforce users with modified permission sets in the last 30 days
     queries:
       - query: |
           FIND salesforce_user THAT ASSIGNED salesforce_permission_set WITH lastModifiedDate < DATE.now - 30 days
     tags:
       - salesforce
-      - integration
+      - user
