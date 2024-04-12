@@ -3,11 +3,16 @@ sourceId: managed:salesforce
 integrationDefinitionId: '${integration_definition_id}'
 questions:
   - id: integration-salesforce-user-permissionsets
-    title: Which salesforce users have had modified permission sets in the last 30 days?
-    description: 
-      Finds all salesforce users with modified permission sets in the last 30 days
+    title:
+      Which salesforce users have had modified permission sets in the last 30
+      days?
+    description:
+      Finds all salesforce users with modified permission sets in the last 30
+      days
     queries:
-      - name: Which salesforce users have had modified permission sets in the last 30 days?
+      - name:
+          Which salesforce users have had modified permission sets in the last
+          30 days?
         resultsAre: INFORMATIVE
         query: |
           FIND salesforce_user THAT ASSIGNED salesforce_permission_set WITH lastModifiedDate < DATE.now - 30 days
