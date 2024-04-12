@@ -1,5 +1,5 @@
 ---
-sourceId: managed:google_cloud
+sourceId: managed:salesforce
 integrationDefinitionId: '${integration_definition_id}'
 questions:
   ################################################################################
