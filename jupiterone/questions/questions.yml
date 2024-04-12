@@ -2,9 +2,6 @@
 sourceId: managed:salesforce
 integrationDefinitionId: '${integration_definition_id}'
 questions:
-  ################################################################################
-  # Generic non-compliance questions
-  ################################################################################
   - id: integration-salesforce-user-permissionsets
     title: Which salesforce users have had modified permission sets in the last 30 days?
     description: 
